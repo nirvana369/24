@@ -1,3 +1,5 @@
+![42](https://github.com/nirvana369/24/blob/main/42.jpg)
+
 # 24
 1 8 3 4
 -----------------------
