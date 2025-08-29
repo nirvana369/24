@@ -52,15 +52,14 @@ def ff(p):
     # Initialize dictionaries for h, m, l
     h, m, l = {}, {}, {}
     # Given initial values
-
-    # First loop: fill h
-    for i in range(1, 11, 3):  # i = 1, 4, 7, 10
-        h[i] = p[i // 3]
-        h[i + 1] = _f(h[i], 1)
-        h[i + 2] = _f(h[i], 2)
+    index = [1,4,7,10]
 
     # Second loop: calculate m, l, and extend h, m, l to 24
     for i in range(1, 13):  # i = 1..12
+        if (i in index): 
+            h[i] = p[i // 3] 
+        else: 
+            h[i] = _f(h[i-1], 1)
         # compute m[i]
         m[i] = _f(h[i], 6)
         # compute l[i]
