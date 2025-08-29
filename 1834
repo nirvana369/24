@@ -1,39 +1,83 @@
-# Initialize dictionaries for h, m, l
-h, m, l = {}, {}, {}
+_1834 = [1, 8, 3, 4]
 
-# Given initial values
-h[1] = 1
-h[4] = 8
-h[7] = 3
-h[10] = 4
+#ver i
+def vi():
+    # Initialize dictionaries for h, m, l
+    h, m, l = {}, {}, {}
 
-# First loop: fill h
-for i in range(1, 11, 3):  # i = 1, 4, 7, 10
-    h[i + 1] = h[i] + 1
-    if h[i] + 2 > 9:
-        h[i + 2] = (h[i] + 2) - 9
-    else:
-        h[i + 2] = h[i] + 2
+    # Given initial values
+    h[1] = 1
+    h[4] = 8
+    h[7] = 3
+    h[10] = 4
 
-# Second loop: calculate m, l, and extend h, m, l to 24
-for i in range(1, 13):  # i = 1..12
-    # compute m[i]
-    if h[i] + 6 > 9:
-        m[i] = (h[i] + 6) - 9
-    else:
-        m[i] = h[i] + 6
+    # First loop: fill h
+    for i in range(1, 11, 3):  # i = 1, 4, 7, 10
+        h[i + 1] = h[i] + 1
+        if h[i] + 2 > 9:
+            h[i + 2] = (h[i] + 2) - 9
+        else:
+            h[i + 2] = h[i] + 2
 
-    # compute l[i]
-    if m[i] - 3 <= 0:
-        l[i] = (m[i] - 3) + 9
-    else:
-        l[i] = m[i] - 3
+    # Second loop: calculate m, l, and extend h, m, l to 24
+    for i in range(1, 13):  # i = 1..12
+        # compute m[i]
+        if h[i] + 6 > 9:
+            m[i] = (h[i] + 6) - 9
+        else:
+            m[i] = h[i] + 6
+        # compute l[i]
+        if m[i] - 3 <= 0:
+            l[i] = (m[i] - 3) + 9
+        else:
+            l[i] = m[i] - 3
 
-    # extend to 24
-    h[i + 12] = 10 - h[i]
-    m[i + 12] = 10 - m[i]
-    l[i + 12] = 10 - l[i]
+        # extend to 24
+        h[i + 12] = 10 - h[i]
+        m[i + 12] = 10 - m[i]
+        l[i + 12] = 10 - l[i]
 
-# Print results from 1 to 24
+    return (h, m, l)
+
+def div_10_mul_neg_9(value):
+    return value // 10 * -9
+
+def _f(x, n):
+    return (x + n) + div_10_mul_neg_9(x + n)
+
+def _f10(x):
+    return 10 - x
+
+def ff(p):
+    # Initialize dictionaries for h, m, l
+    h, m, l = {}, {}, {}
+    # Given initial values
+
+    # First loop: fill h
+    for i in range(1, 11, 3):  # i = 1, 4, 7, 10
+        h[i] = p[i // 3]
+        h[i + 1] = _f(h[i], 1)
+        h[i + 2] = _f(h[i], 2)
+
+    # Second loop: calculate m, l, and extend h, m, l to 24
+    for i in range(1, 13):  # i = 1..12
+        # compute m[i]
+        m[i] = _f(h[i], 6)
+        # compute l[i]
+        l[i] = _f(m[i], 6)
+
+        # extend to 24
+        h[i + 12] = _f10(h[i])
+        m[i + 12] = _f10(m[i])
+        l[i + 12] = _f10(l[i])
+
+    return (h, m, l)
+
+
+tn,trn,hn = vi()
+wtn,wtrn,whn = ff([1,8,3,4])
+
 for i in range(1, 25):
-    print(f"{i:2d}: h={h[i]}, m={m[i]}, l={l[i]}")
+    print(f"{i:2d}: {tn[i]}-{trn[i]}-{hn[i]}")
+    if (tn[i] != wtn[i] or trn[i] != wtrn[i] or hn[i] != whn[i]):
+        print(f"{i:2d}: warning {wtn[i]}-{wtrn[i]}-{whn[i]}")
